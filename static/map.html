@@ -1,0 +1,287 @@
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<!--百度地图容器-->
+<div id="dituContent0" style="width:100%;height:450px;border:#ccc solid 1px;">&nbsp;</div>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap() {
+        createMap(); //创建地图
+        setMapEvent(); //设置地图事件
+        addMapControl(); //向地图添加控件
+        addMarker(); //向地图中添加marker
+    }
+
+    //创建地图函数：
+    function createMap() {
+        var map = new BMap.Map("dituContent0"); //在百度地图容器中创建一个地图
+        var point = new BMap.Point(113.356825, 23.007101); //定义一个中心点坐标
+        map.centerAndZoom(point, 18); //设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map; //将map变量存储在全局
+    }
+
+    //地图事件设置函数：
+    function setMapEvent() {
+        map.enableDragging(); //启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom(); //启用地图滚轮放大缩小
+        map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard(); //启用键盘上下左右键移动地图
+    }
+
+    //地图控件添加函数：
+    function addMapControl() {
+        //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            type: BMAP_NAVIGATION_CONTROL_LARGE
+        });
+        map.addControl(ctrl_nav);
+        //向地图中添加比例尺控件
+        var ctrl_sca = new BMap.ScaleControl({
+            anchor: BMAP_ANCHOR_BOTTOM_LEFT
+        });
+        map.addControl(ctrl_sca);
+    }
+
+    //标注点数组
+    var markerArr = [{
+        title: "豪米科技",
+        content: "地址： 广州市番禺大道上城国际三栋925房<br/>手机：15918107520",
+        point: "113.356825|23.007101",
+        isOpen: 1,
+        icon: {
+            w: 23,
+            h: 25,
+            l: 46,
+            t: 21,
+            x: 9,
+            lb: 12
+        }
+    }];
+    //创建marker
+    function addMarker() {
+        for (var i = 0; i < markerArr.length; i++) {
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0, p1);
+            var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point, {
+                icon: iconImg
+            });
+            var iw = createInfoWindow(i);
+            var label = new BMap.Label(json.title, {
+                "offset": new BMap.Size(json.icon.lb - json.icon.x + 10, -20)
+            });
+            marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                borderColor: "#808080",
+                color: "#333",
+                cursor: "pointer"
+            });
+
+            (function() {
+                var index = i;
+                var _iw = createInfoWindow(i);
+                var _marker = marker;
+                _marker.addEventListener("click", function() {
+                    this.openInfoWindow(_iw);
+                });
+                _iw.addEventListener("open", function() {
+                    _marker.getLabel().hide();
+                })
+                _iw.addEventListener("close", function() {
+                    _marker.getLabel().show();
+                })
+                label.addEventListener("click", function() {
+                    _marker.openInfoWindow(_iw);
+                })
+                if (!!json.isOpen) {
+                    label.hide();
+                    _marker.openInfoWindow(_iw);
+                }
+            })()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i) {
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json) {
+        var icon = new BMap.Icon("http://map.baidu.com/image/us_cursor.gif", new BMap.Size(json.w, json.h), {
+            imageOffset: new BMap.Size(-json.l, -json.t),
+            infoWindowOffset: new BMap.Size(json.lb + 5, 1),
+            offset: new BMap.Size(json.x, json.h)
+        })
+        return icon;
+    }
+
+    initMap(); //创建和初始化地图
+</script>
+<div class="ctapanel">
+    <div class="sec_title">
+        <div class="ch transy dly_1 tranShow">
+            联系我们
+        </div>
+        <div class="sec-Ttxt transy tranShow">
+            <h4>
+                Contact us</h4>
+            <p> <span>——————</span> 您可以通过拨打下方电话或者发送邮件的方式与我们取得联系 <span>——————</span> </p>
+        </div>
+    </div>
+    <ul class="ctas ppw clearfix">
+        <li class="cta1">
+            <div class="icob"> <span class="ico"></span> </div>
+            <p class="en">
+                ADDRESS
+            </p>
+            <p class="ch">
+                广州市番禺大道上城国际三栋925房
+            </p>
+        </li>
+        <li class="cta2">
+            <div class="icob"> <span class="ico"></span> </div>
+            <p class="en">
+                tel
+            </p>
+            <p class="ch">020-31079202</p>
+        </li>
+        <li class="cta3">
+            <div class="icob"> <span class="ico"></span> </div>
+            <p class="en">
+                PHONE
+            </p>
+            <p class="ch">15918107520</p>
+        </li>
+        <li class="cta4">
+            <div class="icob"> <span class="ico"></span> </div>
+            <p class="en">
+                emall
+            </p>
+            <p class="ch"> <a href="mailto:service@web-020.com">service@web-020.com</a> </p>
+        </li>
+    </ul>
+    <div class="cta_words">
+        <div class="ppw">
+            <div class="sec_title">
+                <div class="ch transy dly_1 tranShow">
+                    在线留言
+                </div>
+                <div class="sec-Ttxt transy tranShow">
+                    <h4>
+                        online message</h4>
+                    <p> <span>——————</span> 我们的工作人员会尽快与您取得联系 <span>——————</span> </p>
+                </div>
+            </div>
+            <div class="words">
+                <!--File reference(CSS、JS)  Start(本区域代码根据具体页面引用情况酌情添加(若没有则添加，反之则不添加))-->
+                <link type="text/css" rel="stylesheet" href="contact_files/validate.css">
+                <link type="text/css" rel="stylesheet" href="contact_files/pagination.css">
+                <link type="text/css" rel="stylesheet" href="contact_files/ui-dialog.css">
+                <script type="text/javascript" src="contact_files/jquery-1.js"></script>
+                <script type="text/javascript" src="contact_files/jquery.js"></script>
+                <script type="text/javascript" src="contact_files/Validform_v5.js"></script>
+                <script type="text/javascript" src="contact_files/dialog-plus-min.js"></script>
+                <script type="text/javascript" src="contact_files/common.js"></script>
+                <!--/File reference(CSS、JS)  End-->
+                <script type="text/javascript">
+                    $(function() {
+                        //初始化发表评论表单
+                        AjaxInitForm('#contact_form', '#btnsubmit', 1);
+                    });
+                </script>
+                <form id="contact_form" name="contact_form" url="/plugins/submit/client_submitajax.ashx?action=submit_add"> <input name="field_control_company_name" id="field_control_company_name" datatype="*" class="company s-input" value="公司名称 :" type="text"> <input name="field_control_email" id="field_control_email" class="mail s-input" value="邮箱 :" type="text">                    <input name="field_control_tel" id="field_control_tel" class="phone s-input" value="联系方式 :" type="text"> <input name="field_control_contact" id="field_control_contact" class="name s-input" value="联系人 :" type="text"> <textarea class="s-textarea s-input"
+                        name="field_control_demand" id="field_control_demand">请输入您的需求 ...</textarea> <input id="hiddCategoryId" name="hiddCategoryId" value="5" type="hidden"> <input id="hiddTitleName" name="hiddTitleName" value="field_control_contact" type="hidden">                    <input id="hiddCodeName" name="hiddCodeName" value="txtCode" type="hidden"> <input id="hidIsValidate" name="hidIsValidate" value="0" type="hidden"> <input class="subBtn" value="提交" id="btnSubmit" name="btnSubmit" type="submit">
+                    <p>
+                        等待期间需要获取更多信息，请<a href="http://www.web-020.com/index.html">继续访问</a>或<a href="http://www.web-020.com/contact.html">联系我们</a>。<br> </p> <span class="Validform_checktip"></span></form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer start -->
+<div class="footer">
+    <div class="ppw">
+        <div class="foTop clearfix">
+            <p class="fo_ab"> <span>ABOUT US</span><br> 豪米科技奉行“低成本打造品牌”的宗旨，专注于品牌推广、一站式营销系统开发等领域，为解决企业营销难题而生，为企业量身订制互联网品牌解决方案。
+                <br> <br> </p>
+            <div class="fo-cta"> <span>CONTACT US</span><br>
+                <p> <strong>地址： </strong> 广州市番禺大道上城国际三栋925房</p>
+                <p> <strong>服务热线： </strong>020-31079202 </p>
+                <p> <strong>咨询电话：</strong>1591810
+                    <a href="mailto:service@web-020.com"></a>7520</p>
+                <p> <strong>邮箱：</strong><a href="mailto:service@web-020.com">service@web-020.com </a> </p>
+            </div>
+            <div class="fo-tool">
+                <div class="wxs clearfix"> </div>
+                <p> © Copyright 2015-2018 All Right Reserved </p> <a href="http://www.web-020.com/" target="_blank">广州网站网络公司</a> 豪米科技 <a href="http://www.web-020.com/" target="_blank">广州网站建设</a>专家 </div>
+        </div>
+        <ul class="fo-nav clearfix">
+            <li> <a href="http://www.web-020.com/goshop.html">商城分销 </a><strong>|</strong> </li>
+            <li> <a href="http://www.web-020.com/h5.html">三维动态 </a><strong>|</strong> </li>
+            <li><a href="http://www.web-020.com/about.html" target="">关于豪米 </a><strong>|</strong> </li>
+            <li><a href="http://www.web-020.com/portal/list/index/id/1" target="">新闻动态 </a><strong>|</strong> </li>
+            <li><a href="http://www.web-020.com/contact.html" target="">联系我们 </a></li>
+        </ul>
+        <div class="hotword">
+            本站关键词：
+            <a href="http://www.web-020.com/" target="_blank">广州网站设计</a> <a href="http://www.web-020.com/" target="_blank">广州网站建设</a> <a href="http://www.web-020.com/" target="_blank">广州网站制作公司</a> <a href="http://www.web-020.com/" target="_blank">广州企业网站建设</a>            <a href="http://www.web-020.com/" target="_blank">广州网站设计公司</a> <a href="http://www.web-020.com/" target="_blank">广州商城网站建设</a> <a href="http://www.web-020.com/" target="_blank">企业网站制作</a> <a href="http://www.web-020.com/" target="_blank">广州网站建设公司</a>            </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div class="fo-map">
+        <div class="openmap">
+            <div class="ppw clearfix">
+                <a href="http://www.web-020.com/index.html" class="fo-logo"> <img src="/style/image/logofoot.png" alt="豪米科技" /> </a>
+                <div style="float:right; padding-top:10px;">
+                    <div class="lf_1" style="float:left">备案号:粤ICP备16116159号-1
+                        <script type="text/javascript">
+                            var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                            document.write(unescape("%3Cspan id='cnzz_stat_icon_1260888334'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/stat.php%3Fid%3D1260888334%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+                        </script>
+                    </div>
+                    <div class="lf_1" style="float:left;margin-left:50px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="top" id="top"></a>
+<script type="text/javascript" src="/style/js/common.js" data-main="indexMain"></script>
+<script src="/style/js/plugin.js"></script>
+<script src="/style/js/page.js"></script>
+<script>
+    $(function() {
+        var step = 0;
+
+        function changePro() {
+            $('#pswp li').removeClass('act').eq(step).addClass('act');
+            $('#pswtx li').hide().eq(step).show();
+        }
+
+        function proBox() {
+            if (!isMobile) {
+                clik = "mouseenter";
+            } else {
+                clik = "click";
+            }
+            if (w_width > 641) {
+                changePro();
+                $('#pswp li').bind(clik, function() {
+                    step = $(this).index();
+                    changePro();
+                });
+            } else {
+                $('#pswtx li').show();
+            }
+        }
+
+        proBox();
+        $(window).resize(function() {
+            proBox();
+        })
+    });
+    $('html,body').stop().animate({
+        scrollTop: $('#pnav').offset().top - $mtoph
+    }, 500, "easeInOutExpo");
+</script>

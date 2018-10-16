@@ -1,0 +1,136 @@
+@media screen and (max-width: 1024px) {
+    .ppw {
+        width: 100%;
+    }
+    .header .nav {
+        display: none;
+    }
+    .menu-handler {
+        display: block;
+    }
+    .main {
+        width: 100%
+    }
+    .addbox {
+        clear: both;
+        margin-top: 48px;
+    }
+    .index-news {
+        width: 100%
+    }
+}
+
+@media screen and (max-width:641px) {
+    .fo-nav {
+        display: none;
+    }
+    .ctas li {
+        width: 50%;
+    }
+    .words {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .pageBox {
+        width: 70%
+    }
+    .lifeList li {
+        float: none;
+        width: 100%;
+        margin: 0;
+        transition: 300ms;
+    }
+    .footer {
+        padding: 0 15px;
+    }
+    .sec-Ttxt span {
+        display: none;
+    }
+    .main_apps li {
+        float: left;
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+    }
+    .idx_pros a {
+        width: 46%;
+    }
+    .idx_pros .idxp11 .ico,
+    .idx_pros .idxp21 .ico,
+    .idx_pros .idxp22 .ico,
+    .idx_pros .idxp12 .ico,
+    .idx_pros .idxp23 .ico,
+    .idx_pros .idxp13 .ico {
+        background-position: -1em;
+    }
+    .idx_pros {
+        border-bottom: none;
+    }
+    .mobile,
+    .index-case .el-col-6 {
+        width: 100%;
+    }
+    .index-news-cont dl dd {
+        padding: 0 1em;
+        width: 100%;
+    }
+    .index-news-cont dl {
+        width: 98%;
+    }
+    .index-news-cont {
+        width: 98%;
+    }
+    .index-news-cont dl dt b {
+        font-size: 1em;
+    }
+    .newList ul li .img img {
+        display: none;
+    }
+    .newList ul li .time {
+        display: none;
+    }
+    .newscontent h2 {
+        font-size: 1em;
+    }
+    .caselist ul li {
+        width: 100%
+    }
+    .index-news .title h1 {
+        font-size: 1em;
+        margin-bottom: 1em;
+    }
+    .el-tabs__item {
+        width: 25%;
+    }
+    .banadd {
+        visibility: hidden;
+    }
+    .index-flash .font {
+        display: none;
+    }
+    .el-tabs__nav {
+        float: right;
+        padding-right: 1em;
+    }
+}
+
+@media screen and (max-width:981px) {
+    .words .company,
+    .words .name,
+    .words .phone,
+    .words .mail {
+        width: 100%;
+    }
+    .title1,
+    .title2 {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width:861px) {
+    .lifeList li {
+        width: 100%;
+        float: none;
+        margin-bottom: 15px;
+    }
+}
